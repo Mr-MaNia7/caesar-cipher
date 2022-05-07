@@ -1,7 +1,12 @@
 import string
 
-def ceasar(char, key):
-    """A function for making ceasar cipher on each input characters."""
+"""Ceasar Cipher
+
+A program for demonstrating ceasar cipher!
+"""
+
+def ceasarEnc(char, key):
+    """An encrypting function accepting characters and returning swiched ones."""
     ascii_number = ord(char)
     
     if (65 <= ascii_number <= 90):
@@ -17,13 +22,13 @@ def main():
     key = int(input("Enter a shift key: "))
     
     enc_list = []
-    words = plain_txt.split()
+    words = plain_txt.split() # removes white space between words
     
     for word in words:
         temp_list=[]
         word = word.translate(str.maketrans("", "", string.punctuation))
         for char in word:
-            temp_list.append(ceasar(char, key))
+            temp_list.append(ceasarEnc(char, key))
         temp_list.append(" ") # undoing the space removal
         enc_list.extend(temp_list)
     
