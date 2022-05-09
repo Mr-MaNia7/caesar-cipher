@@ -10,8 +10,9 @@ import tkinter as tk
 def ceasarEnc(char, key):
     """An encrypting function implementing ceasar cipher."""
     ascii_number = ord(char)
-    
-    if (65 <= ascii_number <= 90):
+    if ascii_number == 10: # new character
+        return chr(ascii_number)
+    elif (65 <= ascii_number <= 90):
         num = ascii_number - 65
         enc_pos = (num + key) % 26 + 65
     elif (97 <= ascii_number <= 122):
@@ -21,16 +22,16 @@ def ceasarEnc(char, key):
 
 def main():
     """The main entry of the program."""
-    def getInput():
+    def processInput():
         """A function to process user input."""
         txt = plain_txt.get(1.0, "end-1c")
         key = int(key_txt.get(1.0, "end-1c"))
         
         enc_list = []
-        words = txt.split() # removes white space between words
+        words = txt.split(" ") # removes white space between words
 
         for word in words:
-            temp_list=[]
+            temp_list = []
             word = word.translate(str.maketrans("", "", string.punctuation))
             for char in word:
                 temp_list.append(ceasarEnc(char, key))
@@ -38,6 +39,7 @@ def main():
             enc_list.extend(temp_list)
     
         enc_word = "".join(enc_list)
+        encrypt_txt.delete(1.0, "end")
         encrypt_txt.insert(1.0, enc_word)
     
     # Initialize tkinter window
@@ -69,7 +71,7 @@ def main():
     key_txt = tk.Text(root, width = 10)
     key_txt.grid(row = 2, column = 4, pady = 5)
 
-    submit = tk.Button(root, text = "Encrypt", command = getInput)
+    submit = tk.Button(root, text = "Encrypt", command = processInput)
     submit.grid(row = 2, column = 5, padx = 5, pady = 5)
 
     # Widget to display output
