@@ -1,16 +1,34 @@
 """Ceasar Cipher
 
 A program for demonstrating ceasar cipher!
+
+This application allows the user to encrypt alphabetic text
+and see the encrypted text in real time.
+
+The app accepts user input through a text box and it expects
+the user to input only alphabetic characters along with tab 
+and new-line characters. Otherwise the charaters are avoided
+and hence will not be encrypted!
+
+This program requires that `tkinter` will be installed within 
+the Python environment you are running this code in.
+
+This program contains the following functions:
+    * ceasarEnc - encrypts a char shifting it with a key
+    * main - the main function of the program
+    * processInput - accepts, parses and processes user input
 """
 
-# Importing modules
+# Importing important modules
 import string
 import tkinter as tk
+from tkinter import messagebox
 
 def ceasarEnc(char, key):
     """An encrypting function implementing ceasar cipher."""
     ascii_number = ord(char)
-    if ascii_number == 10: # new character
+    skip_number = [9, 10] # new line and tab characters
+    if ascii_number in skip_number:
         return chr(ascii_number)
     elif (65 <= ascii_number <= 90):
         num = ascii_number - 65
@@ -25,20 +43,25 @@ def main():
     def processInput():
         """A function to process user input."""
         txt = plain_txt.get(1.0, "end-1c")
-        key = int(key_txt.get(1.0, "end-1c"))
+        try:
+            key = int(key_txt.get(1.0, "end-1c"))
+        except:
+            messagebox.showwarning(title = "Warning", message = "Please enter an integer value for the key field!")
         
         enc_list = []
-        words = txt.split(" ") # removes white space between words
+        words = txt.split(" ") # removes blank-space between words
 
         for word in words:
             temp_list = []
-            word = word.translate(str.maketrans("", "", string.punctuation))
+            remove_chars = string.punctuation + "1234567890"
+            word = word.translate(str.maketrans("", "", remove_chars))
             for char in word:
                 temp_list.append(ceasarEnc(char, key))
             temp_list.append(" ") # undoing the space removal
             enc_list.extend(temp_list)
     
-        enc_word = "".join(enc_list)
+        # removing the last trailing space
+        enc_word = "".join(enc_list).rstrip()         
         encrypt_txt.delete(1.0, "end")
         encrypt_txt.insert(1.0, enc_word)
     
