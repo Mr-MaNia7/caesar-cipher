@@ -17,6 +17,7 @@ This program contains the following functions:
     * ceasarEnc - encrypts a char shifting it with a key
     * main - the main function of the program
     * processInput - accepts, parses and processes user input
+    * clear - clears input screen(s)
 """
 
 # Importing important modules
@@ -65,11 +66,16 @@ def main():
         encrypt_txt.delete(1.0, "end")
         encrypt_txt.insert(1.0, enc_word)
     
+    def clear():
+        """A function to clear input screen(s)."""
+        plain_txt.delete(1.0, "end")
+        encrypt_txt.delete(1.0, "end")
+
     # Initialize tkinter window
     root = tk.Tk()
     root.title("Ceasar's cipher")
     root.geometry('600x570')
-    root.resizable(1, 1)
+    root.resizable(1, 0)
     
     # Configuring rows and columns
     root.rowconfigure(1, weight = 1)
@@ -83,10 +89,10 @@ def main():
     
     # Widgets to accept user input
     plain_lbl = tk.Label(root, text = "Input the plain text to be encrypted below")
-    plain_lbl.grid(row = 0, column = 0, columnspan = 6, sticky = tk.EW, padx = 5, pady = 5)
+    plain_lbl.grid(row = 0, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
 
     plain_txt = tk.Text(root)
-    plain_txt.grid(row = 1, column = 0, columnspan = 6, sticky = tk.EW, padx = 5, pady = 5)
+    plain_txt.grid(row = 1, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
 
     key_lbl = tk.Label(root, text = "Shifting Key: ")
     key_lbl.grid(row = 2, column = 3, pady = 5)
@@ -94,15 +100,18 @@ def main():
     key_txt = tk.Text(root, width = 10)
     key_txt.grid(row = 2, column = 4, pady = 5)
 
+    clear_btn = tk.Button(root, text = "Clear", command = clear)
+    clear_btn.grid(row = 2, column = 5, pady = 5)
+
     submit = tk.Button(root, text = "Encrypt", command = processInput)
-    submit.grid(row = 2, column = 5, padx = 5, pady = 5)
+    submit.grid(row = 2, column = 6, padx = 5, pady = 5)
 
     # Widget to display output
     encrypt_lbl = tk.Label(root, text = "Encrypted Text")
-    encrypt_lbl.grid(row = 3, column = 0, columnspan = 6, sticky = tk.EW, padx = 5, pady = 5)
+    encrypt_lbl.grid(row = 3, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
     
     encrypt_txt = tk.Text(root)
-    encrypt_txt.grid(row = 4, column = 0, columnspan = 6, sticky = tk.EW, padx = 5, pady = 5)
+    encrypt_txt.grid(row = 4, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
     
     root.mainloop()
 
