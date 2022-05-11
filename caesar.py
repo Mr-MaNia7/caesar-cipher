@@ -51,25 +51,25 @@ def main():
         txt = plain_txt.get(1.0, "end-1c")
         try:
             key = int(key_txt.get(1.0, "end-1c"))
+            enc_list = []
+            words = txt.split(" ") # removes blank-space between words
+
+            for word in words:
+                temp_list = []
+                remove_chars = string.punctuation + "1234567890"
+                word = word.translate(str.maketrans("", "", remove_chars))
+                for char in word:
+                    temp_list.append(caesarEnc(char, key))
+                temp_list.append(" ") # undoing the space removal
+                enc_list.extend(temp_list)
+    
+            # removing the last trailing space
+            enc_word = "".join(enc_list).rstrip()         
+            encrypt_txt.delete(1.0, "end")
+            encrypt_txt.insert(1.0, enc_word)
+        
         except:
             messagebox.showwarning(title = "Warning", message = "Please enter an integer value for the key field!")
-        
-        enc_list = []
-        words = txt.split(" ") # removes blank-space between words
-
-        for word in words:
-            temp_list = []
-            remove_chars = string.punctuation + "1234567890"
-            word = word.translate(str.maketrans("", "", remove_chars))
-            for char in word:
-                temp_list.append(caesarEnc(char, key))
-            temp_list.append(" ") # undoing the space removal
-            enc_list.extend(temp_list)
-    
-        # removing the last trailing space
-        enc_word = "".join(enc_list).rstrip()         
-        encrypt_txt.delete(1.0, "end")
-        encrypt_txt.insert(1.0, enc_word)
     
     def clear():
         """A function to clear text-box widgets."""
