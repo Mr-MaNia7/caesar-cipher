@@ -3,7 +3,11 @@
 A program for demonstrating caesar cipher!
 
 This application allows the user to encrypt alphabetic text
-and see the encrypted text in real time.
+and see the encrypted text in real time. The program allows 
+two types of encryptions right shift with a positive key and
+left shift with a negative key. It also allows decryption in 
+such a way that you will decrypt using left shift on the cipher
+text encrypted with a right shift and using the same key.
 
 The app accepts user input through a text box and it expects
 the user to input only alphabetic characters along with tab 
