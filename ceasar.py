@@ -17,10 +17,10 @@ This program contains the following functions:
     * ceasarEnc - encrypts a char shifting it with a key
     * main - the main function of the program
     * processInput - accepts, parses and processes user input
-    * clear - clears input screen(s)
+    * clear - clears text-box widgets
 """
 
-# Importing important modules
+# Import necessary modules
 import string
 import tkinter as tk
 from tkinter import messagebox
@@ -34,10 +34,11 @@ def ceasarEnc(char, key):
     elif (65 <= ascii_number <= 90):
         num = ascii_number - 65
         enc_pos = (num + key) % 26 + 65
+        return chr(enc_pos)
     elif (97 <= ascii_number <= 122):
         num = ascii_number - 97
         enc_pos = (num + key) % 26 + 97
-    return chr(enc_pos)
+        return chr(enc_pos)
 
 def main():
     """The main entry of the program."""
@@ -67,16 +68,29 @@ def main():
         encrypt_txt.insert(1.0, enc_word)
     
     def clear():
-        """A function to clear input screen(s)."""
+        """A function to clear text-box widgets."""
         plain_txt.delete(1.0, "end")
         encrypt_txt.delete(1.0, "end")
 
     # Initialize tkinter window
     root = tk.Tk()
     root.title("Ceasar's cipher")
-    root.geometry('600x570')
-    root.resizable(1, 0)
+    # Get screen size information
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
     
+    win_width = 600
+    win_height = 570
+
+    x_begin = int((screen_width/2)-(win_width/2))
+    y_begin = int((screen_height/2)-(win_height/2))
+   
+    root.geometry('{}x{}+{}+{}'.format(
+        win_width, win_height, x_begin, y_begin
+    ))
+    root.resizable(1, 0)
+    root.configure(bg = "#856ff8")
+
     # Configuring rows and columns
     root.rowconfigure(1, weight = 1)
     root.rowconfigure(2, weight = 2)
@@ -88,26 +102,28 @@ def main():
     root.columnconfigure(3, weight = 1)
     
     # Widgets to accept user input
-    plain_lbl = tk.Label(root, text = "Input the plain text to be encrypted below")
+    plain_lbl = tk.Label(root, text = "Input the plain text to be encrypted below", bg = "#856ff8", fg = "#F5F5F5", font = (14))
     plain_lbl.grid(row = 0, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
 
     plain_txt = tk.Text(root)
     plain_txt.grid(row = 1, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
 
-    key_lbl = tk.Label(root, text = "Shifting Key: ")
+    key_lbl = tk.Label(root, text = "Key", bg = "#856ff8", fg = "#F5F5F5")
     key_lbl.grid(row = 2, column = 3, pady = 5)
 
     key_txt = tk.Text(root, width = 10)
     key_txt.grid(row = 2, column = 4, pady = 5)
 
-    clear_btn = tk.Button(root, text = "Clear", command = clear)
-    clear_btn.grid(row = 2, column = 5, pady = 5)
+    clear_btn = tk.Button(root, text = "Clear", command = clear, bg = "#116562", fg = "#F5F5F5",
+        highlightbackground = "#116562", activebackground = "#F5F5F5", activeforeground = "#116562")
+    clear_btn.grid(row = 2, column = 5, pady = 5, padx = 5)
 
-    submit = tk.Button(root, text = "Encrypt", command = processInput)
-    submit.grid(row = 2, column = 6, padx = 5, pady = 5)
+    submit_btn = tk.Button(root, text = "Encrypt", command = processInput, bg = "#116562", fg = "#F5F5F5", 
+       highlightbackground = "#116562", activebackground = "#F5F5F5", activeforeground = "#116562")
+    submit_btn.grid(row = 2, column = 6, padx = 5, pady = 5)
 
     # Widget to display output
-    encrypt_lbl = tk.Label(root, text = "Encrypted Text")
+    encrypt_lbl = tk.Label(root, text = "Encrypted Text", bg = "#856ff8", fg = "#F5F5F5", font = (14))
     encrypt_lbl.grid(row = 3, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
     
     encrypt_txt = tk.Text(root)
