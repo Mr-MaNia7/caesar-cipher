@@ -1,6 +1,6 @@
-"""Ceasar Cipher
+"""Caesar Cipher
 
-A program for demonstrating ceasar cipher!
+A program for demonstrating caesar cipher!
 
 This application allows the user to encrypt alphabetic text
 and see the encrypted text in real time.
@@ -14,7 +14,7 @@ This program requires that `tkinter` will be installed within
 the Python environment you are running this code in.
 
 This program contains the following functions:
-    * ceasarEnc - encrypts a char shifting it with a key
+    * caesarEnc - encrypts a char shifting it with a key
     * main - the main function of the program
     * processInput - accepts, parses and processes user input
     * clear - clears text-box widgets
@@ -25,8 +25,8 @@ import string
 import tkinter as tk
 from tkinter import messagebox
 
-def ceasarEnc(char, key):
-    """An encrypting function implementing ceasar cipher."""
+def caesarEnc(char, key):
+    """An encrypting function implementing caesar cipher."""
     ascii_number = ord(char)
     skip_number = [9, 10] # new line and tab characters
     if ascii_number in skip_number:
@@ -58,7 +58,7 @@ def main():
             remove_chars = string.punctuation + "1234567890"
             word = word.translate(str.maketrans("", "", remove_chars))
             for char in word:
-                temp_list.append(ceasarEnc(char, key))
+                temp_list.append(caesarEnc(char, key))
             temp_list.append(" ") # undoing the space removal
             enc_list.extend(temp_list)
     
@@ -74,7 +74,7 @@ def main():
 
     # Initialize tkinter window
     root = tk.Tk()
-    root.title("Ceasar's cipher")
+    root.title("Caesar's cipher")
     # Get screen size information
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
