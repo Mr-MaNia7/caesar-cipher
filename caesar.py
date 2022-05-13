@@ -22,6 +22,14 @@ This program contains the following functions:
     * main - the main function of the program
     * processInput - accepts, parses and processes user input
     * clear - clears text-box widgets
+
+CONTRIBUTORS(name--section--ID Number)
+   Abdulkarim Getachew --- 1 --- UGR/7992/12
+   Bereket Asnake --- 3 --- UGR/9574/12
+   Surafel Getahun --- 2 --- UGR/5965/12
+   Teshome Nbret --- 2 --- UGR/3281/12
+   Petros Beyene --- 1 --- UGR/1308/12
+   Hailemariam Kefale --- 3 --- UGR/0652/12
 """
 
 # Import necessary modules
