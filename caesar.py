@@ -51,30 +51,34 @@ def main():
         txt = plain_txt.get(1.0, "end-1c")
         try:
             key = int(key_txt.get(1.0, "end-1c"))
-            enc_list = []
-            words = txt.split(" ") # removes blank-space between words
-
-            for word in words:
-                temp_list = []
-                remove_chars = string.punctuation + "1234567890"
-                word = word.translate(str.maketrans("", "", remove_chars))
-                for char in word:
-                    temp_list.append(caesarEnc(char, key))
-                temp_list.append(" ") # undoing the space removal
-                enc_list.extend(temp_list)
-    
-            # removing the last trailing space
-            enc_word = "".join(enc_list).rstrip()         
-            encrypt_txt.delete(1.0, "end")
-            encrypt_txt.insert(1.0, enc_word)
-        
         except:
             messagebox.showwarning(title = "Warning", message = "Please enter an integer value for the key field!")
+        
+        enc_list = []
+        words = txt.split(" ") # removes blank-space between words
+
+        for word in words:
+            temp_list = []
+            remove_chars = string.punctuation + "1234567890"
+            word = word.translate(str.maketrans("", "", remove_chars))
+            for char in word:
+                temp_list.append(caesarEnc(char, key))
+            temp_list.append(" ") # undoing the space removal
+            enc_list.extend(temp_list)
+    
+        # removing the last trailing space
+        enc_word = "".join(enc_list).rstrip()
+        encrypt_txt.config(state="normal")         
+        encrypt_txt.delete(1.0, "end")
+        encrypt_txt.insert(1.0, enc_word)
+        encrypt_txt.config(state="disabled") 
     
     def clear():
         """A function to clear text-box widgets."""
         plain_txt.delete(1.0, "end")
+        encrypt_txt.config(state="normal")  
         encrypt_txt.delete(1.0, "end")
+        encrypt_txt.config(state="disabled")
 
     # Initialize tkinter window
     root = tk.Tk()
@@ -93,7 +97,7 @@ def main():
         win_width, win_height, x_begin, y_begin
     ))
     root.resizable(1, 0)
-    root.configure(bg = "#856ff8")
+    root.configure(bg = "#e1f2f2")
 
     # Configuring rows and columns
     root.rowconfigure(1, weight = 1)
@@ -106,28 +110,28 @@ def main():
     root.columnconfigure(3, weight = 1)
     
     # Widgets to accept user input
-    plain_lbl = tk.Label(root, text = "Input the plain text to be encrypted below", bg = "#856ff8", fg = "#F5F5F5", font = (14))
+    plain_lbl = tk.Label(root, text = "Input the plain text to be encrypted below", bg = "#e1f2f2", fg = "#000", font = (14))
     plain_lbl.grid(row = 0, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
 
     plain_txt = tk.Text(root)
     plain_txt.grid(row = 1, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
 
-    key_lbl = tk.Label(root, text = "Key", bg = "#856ff8", fg = "#F5F5F5")
+    key_lbl = tk.Label(root, text = "Key", bg = "#e1f2f2", fg = "#000")
     key_lbl.grid(row = 2, column = 3, pady = 5)
 
     key_txt = tk.Text(root, width = 10)
     key_txt.grid(row = 2, column = 4, pady = 5)
 
-    clear_btn = tk.Button(root, text = "Clear", command = clear, bg = "#116562", fg = "#F5F5F5",
-        highlightbackground = "#116562", activebackground = "#F5F5F5", activeforeground = "#116562")
+    clear_btn = tk.Button(root, text = "Clear", command = clear, bg = "#FF0000", fg = "#F5F5F5",
+        highlightbackground = "#FF0000", activebackground = "#F5F5F5", activeforeground = "#FF0000")
     clear_btn.grid(row = 2, column = 5, pady = 5, padx = 5)
 
-    submit_btn = tk.Button(root, text = "Encrypt", command = processInput, bg = "#116562", fg = "#F5F5F5", 
-       highlightbackground = "#116562", activebackground = "#F5F5F5", activeforeground = "#116562")
+    submit_btn = tk.Button(root, text = "Encrypt", command = processInput, bg = "#0000FF", fg = "#F5F5F5", 
+       highlightbackground = "#0000FF", activebackground = "#F5F5F5", activeforeground = "#0000FF")
     submit_btn.grid(row = 2, column = 6, padx = 5, pady = 5)
 
     # Widget to display output
-    encrypt_lbl = tk.Label(root, text = "Encrypted Text", bg = "#856ff8", fg = "#F5F5F5", font = (14))
+    encrypt_lbl = tk.Label(root, text = "Encrypted Text", bg = "#e1f2f2", fg = "#000", font = (14))
     encrypt_lbl.grid(row = 3, column = 0, columnspan = 7, sticky = tk.EW, padx = 5, pady = 5)
     
     encrypt_txt = tk.Text(root)
